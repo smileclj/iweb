@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Sql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/xiaowei/xiaowei_sql.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <fileNamePattern>logs/xiaowei/xiaowei_sql.log.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>25MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{MM:dd HH:mm:ss.SSS} %-5level %logger{32}:%line -&gt; %msg%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="R" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/xiaowei/xiaowei.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{MM:dd HH:mm:ss.SSS} %-5level %logger{32}:%line -&gt; %msg%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/xiaowei/xiaowei.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="jdbc.sqlonly" additivity="false" level="DEBUG">
+        <appender-ref ref="Sql" />
+        <appender-ref ref="Console" />
+    </logger>
+
+    <logger name="org.apache.commons.beanutils.PropertyUtils" level="ERROR" />
+    <logger name="org.mybatis" level="DEBUG" />
+    <logger name="org.mybatis.spring" level="DEBUG" />
+    <root level="DEBUG">
+        <appender-ref ref="Console" />
+        <appender-ref ref="R" />
+    </root>
+</configuration>

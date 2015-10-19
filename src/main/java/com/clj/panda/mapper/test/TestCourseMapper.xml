@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clj.panda.mapper.test.TestCourseMapper">
+    <resultMap type="TestCourse" id="CourseRM">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="creationTime" property="creationTime"/>
+    </resultMap>
+
+    <insert id="insertCourse" parameterType="TestCourse">
+        INSERT INTO test_course(id,name,remark,creationTime)
+        VALUES(#{id,#{name},#{remark},#{creationTime})
+    </insert>
+
+    <select id="selectCourseById" resultMap="CourseRM">
+        SELECT * FROM test_course WHERE id=#{id}
+    </select>
+
+    <delete id="deleteCourseById">
+        DELETE FROM test_course WHERE id=#{id}
+    </delete>
+</mapper>

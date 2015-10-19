@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Scheduler的配置-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+        <property name="triggers">
+            <list>
+                <ref bean="testTrigger1"/>
+                <ref bean="testTrigger2"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="testTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="testJobDetail1"/>
+        <property name="cronExpression" value="*/5 * * * * ?"/>
+    </bean>
+
+    <bean id="testJob1" class="com.clj.panda.task.TestJob1"></bean>
+    <bean id="testJobDetail1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="testJob1"/>
+        <property name="targetMethod" value="execute"/>
+    </bean>
+
+    <bean id="testTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="testJobDetail2"/>
+        <property name="cronExpression" value="*/5 * * * * ?"/>
+    </bean>
+
+    <bean id="testJob2" class="com.clj.panda.task.TestJob2"></bean>
+    <bean id="testJobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="testJob2"/>
+        <property name="targetMethod" value="execute"/>
+    </bean>
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 自动扫描且只扫描@Controller -->
+    <context:component-scan base-package="com.clj.panda.controller" />
+
+    <!--<context:annotation-config />--><!-- 使用component-scan后可省略-->
+
+    <!--处理json数据转换-->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters>
+            <!--spring自带的jackjson-->
+            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />-->
+
+            <!--使用fastjson-->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+            <!--<bean class="com.clj.panda.web.FastJsonHttpMessageConverter">-->
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+                <property name="features">
+                    <array>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullStringAsEmpty</value>
+                    </array>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false" />
+        <property name="favorParameter" value="false" />
+        <property name="ignoreAcceptHeader" value="false" />
+        <property name="mediaTypes">
+            <value>
+                html=text/html
+                json=application/json
+                jsonp=application/javascript
+                *=*/*
+            </value>
+        </property>
+    </bean>
+
+    <!--对jsonp的支持 不确定使用方式-->
+    <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <property name="jsonpParameterNames">
+            <set>
+                <value>jsonp</value>
+                <!--回调函数-->
+                <value>callback</value>
+            </set>
+        </property>
+    </bean>
+
+    <!--全局异常统一处理-->
+    <bean class="com.clj.panda.web.interceptors.PandaExceptionInterceptor"></bean>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 默认所有的请求都进行拦截 -->
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/out/**" />
+            <bean class="com.clj.panda.web.interceptors.PandaInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 定义JSP视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 支持上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="51485760"></property>
+        <property name="maxInMemorySize" value="102400"></property>
+    </bean>
+</beans>

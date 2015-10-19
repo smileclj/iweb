@@ -1,0 +1,7 @@
+1、随着容器的启动自动执行方法
+    1)可以使用listener
+    2)可以在某个类的构造函数中执行一个方法，在spring加载类的时候自动执行
+
+2、解决前端ajax跨域调用问题
+    1)使用spring mvc interceptor，在进入controller方法之前添加特殊响应头
+      response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
