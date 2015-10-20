@@ -29,4 +29,9 @@ public interface TestStudentMapper {
      * @return
      */
     int deleteStudentById(@Param("id") String id);
+
+    /***
+     * 根据主键修改年龄
+     */
+    int updateAgeStudentById(@Param("id") String id,@Param("age") int age);
 }

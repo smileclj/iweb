@@ -65,6 +65,6 @@
      <!--scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
          <!--Mapper接口所在包名，Spring会自动查找其下的Mapper -->
-        <property name="basePackage" value="com.clj.panda.m"/>
+        <property name="basePackage" value="com.clj.panda.mapper"/>
     </bean>
 </beans>

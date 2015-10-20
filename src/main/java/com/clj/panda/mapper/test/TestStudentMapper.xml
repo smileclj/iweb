@@ -21,4 +21,8 @@
     <delete id="deleteStudentById">
         DELETE FROM test_student WHERE id=#{id}
     </delete>
+
+    <update id="updateAgeStudentById">
+        UPDATE test_student SET age=#{age,jdbcType=INTEGER} WHERE id=#{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

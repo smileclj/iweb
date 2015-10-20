@@ -1,5 +1,6 @@
 import com.alibaba.fastjson.JSONObject;
 import com.clj.panda.dao.StudentDao;
+import com.clj.panda.mapper.test.TestStudentMapper;
 import com.clj.panda.model.entity.test.TestStudent;
 import com.clj.panda.task.TestJob3;
 import com.clj.panda.util.NetUtils;
@@ -14,6 +15,7 @@ import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,13 @@ import java.util.Map;
 public class Test_1 extends AbstractJUnit4SpringContextTests {
     @Resource
     private StudentDao studentDao;
+
+    @Resource
+    private TestStudentMapper testStudentMapper;
+
+    private void m(){
+        System.out.println(1/0);
+    }
 
     @Test
     public void insertStudent(){
@@ -37,6 +46,28 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void updateStudent(){
+        int count = testStudentMapper.updateAgeStudentById("3",22);
+        System.out.println(count);
+    }
+
+    @Test
+    public void test2(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(sdf.format(new Date(-2)));
+    }
+
+    @Test
+    public void test3(){
+        try {
+            m();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("结束");
     }
 
     @Test

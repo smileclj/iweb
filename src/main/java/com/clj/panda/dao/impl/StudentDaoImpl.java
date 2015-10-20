@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by wana on 2015/10/14.
  */
-@Repository
+@Repository("studentDao")
 public class StudentDaoImpl implements StudentDao{
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static final String TABLE = "test_student";
