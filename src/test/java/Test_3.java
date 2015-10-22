@@ -1,3 +1,5 @@
+import com.clj.panda.util.HttpUtils;
+import com.clj.panda.util.NetUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -12,6 +14,8 @@ import org.junit.Test;
 
 import java.io.*;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lao on 2015/9/28.
@@ -140,5 +144,18 @@ public class Test_3 {
             }
 
         }
+    }
+
+    @Test
+    public void wanaTest(){
+        String url = "http://wa.52wana.com:90/portal/wechat/rpc/addColumnUnionid.json";
+        String accessToken = "RgXyt0Ir9c-PDmQeiupVR8YskzvuRDYpmxaNdqFeZbvZqe9j8xLdj8z9fVzRG0ZG7vQ328os-d2HjB1VnG_qMSnG46Ud0o4gQJAYDdT_G8k";
+//        Map<String,Object> params = new HashMap<>();
+//        params.put("accessToken", accessToken);
+        String param = "accessToken=" + accessToken;
+        for(int i=0;i<100;i++){
+            System.out.println(NetUtils.post(url,param,"utf-8",120000,120000));
+        }
+        System.out.println("成功");
     }
 }
