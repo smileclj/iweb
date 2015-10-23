@@ -149,11 +149,11 @@ public class Test_3 {
     @Test
     public void wanaTest(){
         String url = "http://wa.52wana.com:90/portal/wechat/rpc/addColumnUnionid.json";
-        String accessToken = "RgXyt0Ir9c-PDmQeiupVR8YskzvuRDYpmxaNdqFeZbvZqe9j8xLdj8z9fVzRG0ZG7vQ328os-d2HjB1VnG_qMSnG46Ud0o4gQJAYDdT_G8k";
+        String accessToken = "IUaqwH1JUFrqKRQu3Rwrb3XxUdOE8AgaDt8t2mRp6U4hQs_Vphvdo8L1cU1dDNsRe3ez0lSMRM6Pb5AB44gABfH0E4_aQZvbJrM-yvYK3Uc";
 //        Map<String,Object> params = new HashMap<>();
 //        params.put("accessToken", accessToken);
         String param = "accessToken=" + accessToken;
-        for(int i=0;i<100;i++){
+        for(int i=0;i<1;i++){
             System.out.println(NetUtils.post(url,param,"utf-8",120000,120000));
         }
         System.out.println("成功");
