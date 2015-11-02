@@ -18,6 +18,10 @@
         SELECT * FROM test_student WHERE id=#{id}
     </select>
 
+    <select id="selectStudentByAge" resultMap="StudentRM">
+        SELECT * FROM test_student WHERE age=#{age}
+    </select>
+
     <delete id="deleteStudentById">
         DELETE FROM test_student WHERE id=#{id}
     </delete>

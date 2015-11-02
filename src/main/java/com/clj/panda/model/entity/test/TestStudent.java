@@ -13,6 +13,7 @@ public class TestStudent implements Serializable{
     private int age;
     private String remark;
     private long creationTime;
+//    private boolean age;
 
     public String getId() {
         return id;
@@ -37,6 +38,15 @@ public class TestStudent implements Serializable{
     public void setAge(int age) {
         this.age = age;
     }
+
+
+//    public boolean isAge() {
+//        return age;
+//    }
+//
+//    public void setAge(boolean age) {
+//        this.age = age;
+//    }
 
     public String getRemark() {
         return remark;

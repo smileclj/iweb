@@ -4,6 +4,8 @@ import com.clj.panda.model.entity.test.TestStudent;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by lao on 2015/9/28.
  */
@@ -22,6 +24,13 @@ public interface TestStudentMapper {
      * @return
      */
     TestStudent selectStudentById(@Param("id") String id);
+
+    /**
+     * 根据年龄查询
+     * @param age
+     * @return
+     */
+    List<TestStudent> selectStudentByAge(@Param("age") int age);
 
     /**
      * 根据主键删除

@@ -53,7 +53,21 @@ public class TestController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("user", "clj");
-        map.put("id",id);
+        map.put("id", id);
+//        map.put("date",sdf.format(date));
+        return new Result(PandaCode.SUCCESS,map);
+    }
+
+    /**
+     * 返回json数据
+     * @return
+     */
+    @RequestMapping(value="/testBoolean.htm")
+    public Result testBoolean(boolean b1,boolean b2){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("b1", b1);
+        map.put("b2",b2);
 //        map.put("date",sdf.format(date));
         return new Result(PandaCode.SUCCESS,map);
     }

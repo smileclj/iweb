@@ -3,6 +3,7 @@ import com.clj.panda.dao.StudentDao;
 import com.clj.panda.mapper.test.TestStudentMapper;
 import com.clj.panda.model.entity.test.TestStudent;
 import com.clj.panda.task.TestJob3;
+import com.clj.panda.util.HttpUtils;
 import com.clj.panda.util.NetUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,14 +32,14 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     private TestStudentMapper testStudentMapper;
 
     private void m(){
-        System.out.println(1/0);
+        System.out.println(1 / 0);
     }
 
     @Test
     public void insertStudent(){
         TestStudent student = new TestStudent();
-        student.setId("1");
-        student.setName("小明");
+        student.setId("3");
+        student.setName("小张");
         student.setAge(20);
         student.setRemark("备注");
         student.setCreationTime(new Date().getTime());
@@ -52,6 +54,13 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     public void updateStudent(){
         int count = testStudentMapper.updateAgeStudentById("3",22);
         System.out.println(count);
+    }
+
+    @Test
+    public void selectStudent(){
+        List<TestStudent> students = testStudentMapper.selectStudentByAge(5);
+        System.out.println(students);
+        System.out.println(students.size());
     }
 
     @Test
@@ -131,6 +140,34 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
         StringBuilder params = new StringBuilder();
         params.append("access_token=").append(access_token).append("&openid=").append(openid);
         System.out.println(NetUtils.get(url, params.toString()));
+    }
+
+    @Test
+    public void submitSlogan(){
+        String url = "http://localhost:8080/portal/coupon/rpc/submitSlogan.json";
+        for(int i=3;i<=1000;i++){
+            Map<String,String> params = new HashMap<>();
+            params.put("userToken",String.valueOf(i));
+            params.put("content", "口号");
+            System.out.println(HttpUtils.post(url, params));
+        }
+
+
+    }
+
+    @Test
+    public void testSlogan(){
+        String url = "http://localhost:8080/portal/coupon/rpc/praiseSlogan.json";
+        for(int i=3;i<=1000;i++){
+            Map<String,String> params = new HashMap<>();
+            params.put("userToken", String.valueOf(i));
+            System.out.println(HttpUtils.post(url, params));
+        }
+    }
+
+    @Test
+    public void testInteger(){
+        System.out.println(Integer.valueOf(null));
     }
 
     public static void main(String[] args) throws Exception{
