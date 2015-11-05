@@ -2,12 +2,15 @@ package com.clj.panda.controller.test;
 
 import com.clj.panda.common.enums.PandaCode;
 import com.clj.panda.common.exceptions.PandaException;
+import com.clj.panda.common.resp.JsonpResult;
 import com.clj.panda.common.resp.Result;
 import com.clj.panda.service.TestService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -46,7 +49,7 @@ public class TestController {
      * @return
      */
     @RequestMapping(value="/testJson.htm")
-    public Result testJson(@RequestParam("id") String id){
+    public JsonpResult testJson(@RequestParam("id") String id,String callback){
         if(id == null || id.equals("")){
             throw new PandaException(PandaCode.ERROR_PARAM);
         }
@@ -55,7 +58,8 @@ public class TestController {
         map.put("user", "clj");
         map.put("id", id);
 //        map.put("date",sdf.format(date));
-        return new Result(PandaCode.SUCCESS,map);
+        Result result = new Result(PandaCode.SUCCESS,map);
+        return new JsonpResult(result,callback);
     }
 
     /**
@@ -83,7 +87,7 @@ public class TestController {
     @RequestMapping(value="/multiUpload.htm")
     public Result multiUpload(@RequestParam(value="file")CommonsMultipartFile[] files,String comment,HttpServletRequest request,HttpServletResponse response){
         logger.debug("多文件上传");
-        logger.debug("comment:"+comment);
+        logger.debug("comment:" + comment);
         for(int i = 0;i<files.length;i++){
             logger.debug(files[i].getOriginalFilename());
         }

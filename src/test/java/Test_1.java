@@ -17,10 +17,7 @@ import static org.quartz.TriggerBuilder.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
@@ -71,12 +68,17 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void test3(){
-        try {
-            m();
-        } catch (Exception e) {
-            e.printStackTrace();
+//        try {
+//            m();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("结束");
+
+        List<String> list = new ArrayList<>();
+        for(String s:list){
+            System.out.println(s);
         }
-        System.out.println("结束");
     }
 
     @Test
