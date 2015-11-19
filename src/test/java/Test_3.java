@@ -42,6 +42,14 @@ public class Test_3 {
     }
 
     @Test
+    public void addLoginLog(){
+        for(int i = 0;i<100;i++){
+            System.out.println(HttpUtils.get("http://localhost:8080/portal/wechat/rpc/addLoginLog.json?userId=408593&storeId=965"));
+        }
+
+
+    }
+    @Test
     public void singleUpload(){
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
