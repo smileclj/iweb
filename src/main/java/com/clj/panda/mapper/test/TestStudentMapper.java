@@ -23,7 +23,7 @@ public interface TestStudentMapper {
      * @param id
      * @return
      */
-    TestStudent selectStudentById(@Param("id") String id);
+    TestStudent selectStudentById(String id);
 
     /**
      * 根据年龄查询

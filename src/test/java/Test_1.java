@@ -55,9 +55,9 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void selectStudent(){
-        List<TestStudent> students = testStudentMapper.selectStudentByAge(5);
-        System.out.println(students);
-        System.out.println(students.size());
+        TestStudent student = testStudentMapper.selectStudentById("1");
+        System.out.println(student);
+//        System.out.println(students.size());
     }
 
     @Test
