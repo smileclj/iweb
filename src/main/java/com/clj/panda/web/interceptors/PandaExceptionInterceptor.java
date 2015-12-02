@@ -37,8 +37,6 @@ public class PandaExceptionInterceptor extends ExceptionHandlerExceptionResolver
     @Override
     protected ModelAndView doResolveHandlerMethodException(HttpServletRequest request, HttpServletResponse response,
             HandlerMethod handlerMethod, Exception e) {
-        //打印错误日志
-        logger.error(e.getMessage());
 
         Method method = handlerMethod.getMethod();
         //如果返回类型是ModelAndView
@@ -50,16 +48,20 @@ public class PandaExceptionInterceptor extends ExceptionHandlerExceptionResolver
                 PrintWriter writer = response.getWriter();
                 Result result = new Result();
                 if (e instanceof PandaException) {
+                    logger.error(e.getMessage());
                     result.setCode(((PandaException) e).getErrorCode());
                 }
                 //主键冲突
                 else if (e instanceof org.springframework.dao.DuplicateKeyException) {
+                    logger.error(e.getMessage());
                     result.setCode(PandaCode.ERROR_REPEAT);
                 }
                 else if (e.getCause() instanceof java.net.ConnectException) {
+                    logger.error(e.getMessage());
                     result.setCode(PandaCode.ACTION_NOT_EXIST);
                 }
                 else {
+                    e.printStackTrace();
                     result.setCode(PandaCode.UNKNOW);
                 }
                 writer.write(JSON.toJSONString(result));

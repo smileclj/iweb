@@ -44,6 +44,14 @@ public class TestController {
         return view;
     }
 
+    @RequestMapping(value="/testNumber.htm")
+    public Result testView(int a,double b,float c){
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        return new Result(PandaCode.SUCCESS,new HashMap<>());
+    }
+
     /**
      * 返回json数据
      * @return

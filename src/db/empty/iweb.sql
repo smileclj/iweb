@@ -127,3 +127,14 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-10-10 16:39:10
+
+create table number(
+	id bigint not null auto_increment,
+	n_int int,
+	n_double double,
+	n_double_limit double(4,2),
+	n_float float,
+	n_float_limit float(4,2),
+	n_decimal decimal(4,2),
+	primary key(id)
+);
