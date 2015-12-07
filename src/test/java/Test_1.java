@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.clj.panda.dao.StudentDao;
 import com.clj.panda.mapper.test.TestStudentMapper;
@@ -12,8 +13,6 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.quartz.JobBuilder.*;
-import static org.quartz.TriggerBuilder.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -35,8 +34,8 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     @Test
     public void insertStudent(){
         TestStudent student = new TestStudent();
-        student.setId("3");
-        student.setName("小张");
+        student.setId("4");
+        student.setName("小张张");
         student.setAge(20);
         student.setRemark("备注");
         student.setCreationTime(new Date().getTime());
@@ -55,9 +54,9 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void selectStudent(){
-        TestStudent student = testStudentMapper.selectStudentById("1");
-        System.out.println(student);
-//        System.out.println(students.size());
+//        TestStudent student = testStudentMapper.selectStudentById("1");
+        TestStudent student = testStudentMapper.selectStudentByNameAndAge("小明",22);
+        System.out.println(JSON.toJSONString(student));
     }
 
     @Test

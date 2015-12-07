@@ -26,6 +26,16 @@ public interface TestStudentMapper {
     TestStudent selectStudentById(String id);
 
     /**
+     * 根据年龄和姓名查询
+     * @param age
+     * @param name
+     * @return
+     */
+    TestStudent selectStudentByNameAndAge(String name,int age);
+
+
+
+    /**
      * 根据年龄查询
      * @param age
      * @return

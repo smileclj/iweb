@@ -18,6 +18,10 @@
         SELECT * FROM test_student WHERE id=#{id}
     </select>
 
+    <select id="selectStudentByNameAndAge" resultMap="StudentRM">
+        SELECT * FROM test_student WHERE name=#{0} and age=#{1}
+    </select>
+
     <select id="selectStudentByAge" resultMap="StudentRM">
         SELECT * FROM test_student WHERE age=#{age}
     </select>
