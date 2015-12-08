@@ -49,14 +49,14 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     @Test
     public void updateStudent(){
         int count = testStudentMapper.updateAgeStudentById("3",22);
-        System.out.println(count);
+        System.err.println(count);
     }
 
     @Test
     public void selectStudent(){
 //        TestStudent student = testStudentMapper.selectStudentById("1");
         TestStudent student = testStudentMapper.selectStudentByNameAndAge("小明",22);
-        System.out.println(JSON.toJSONString(student));
+        System.err.println(JSON.toJSONString(student));
     }
 
     @Test
