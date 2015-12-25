@@ -27,12 +27,12 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     @Resource
     private TestStudentMapper testStudentMapper;
 
-    private void m(){
+    private void m() {
         System.out.println(1 / 0);
     }
 
     @Test
-    public void insertStudent(){
+    public void insertStudent() {
         TestStudent student = new TestStudent();
         student.setId("4");
         student.setName("小张张");
@@ -47,26 +47,26 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void updateStudent(){
-        int count = testStudentMapper.updateAgeStudentById("3",22);
+    public void updateStudent() {
+        int count = testStudentMapper.updateAgeStudentById("3", 22);
         System.err.println(count);
     }
 
     @Test
-    public void selectStudent(){
+    public void selectStudent() {
 //        TestStudent student = testStudentMapper.selectStudentById("1");
-        TestStudent student = testStudentMapper.selectStudentByNameAndAge("小明",22);
+        TestStudent student = testStudentMapper.selectStudentByNameAndAge("小明", 22);
         System.err.println(JSON.toJSONString(student));
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(sdf.format(new Date(-2)));
     }
 
     @Test
-    public void test3(){
+    public void test3() {
 //        try {
 //            m();
 //        } catch (Exception e) {
@@ -75,18 +75,18 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
 //        System.out.println("结束");
 
         List<String> list = new ArrayList<>();
-        for(String s:list){
+        for (String s : list) {
             System.out.println(s);
         }
     }
 
     @Test
-    public void testScheduler(){
+    public void testScheduler() {
         System.out.println("测试任务");
     }
 
     @Test
-    public void testTask1() throws Exception{
+    public void testTask1() throws Exception {
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         JobDetail jobDetail = JobBuilder.newJob(TestJob3.class).withIdentity("testJob").build();
         Trigger trigger = TriggerBuilder.newTrigger().withIdentity("testTrigger").
@@ -94,16 +94,16 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
         scheduler.scheduleJob(jobDetail, trigger);
     }
 
-    private void t1(){
+    private void t1() {
         try {
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-            JobDetail jobDetail = JobBuilder.newJob(TestJob3.class).withIdentity("testJob","group1").build();
+            JobDetail jobDetail = JobBuilder.newJob(TestJob3.class).withIdentity("testJob", "group1").build();
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity("testTrigger").startNow().
                     withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?")).build();
 
 //            Trigger trigger = TriggerBuilder.newTrigger().withIdentity("testTrigger","group1").startNow().
 //                withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).repeatForever()).build();
-            scheduler.scheduleJob(jobDetail,trigger);
+            scheduler.scheduleJob(jobDetail, trigger);
             scheduler.start();
         } catch (SchedulerException e) {
             e.printStackTrace();
@@ -111,30 +111,30 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void common(){
-        Map<String,Object> map = new HashMap<String,Object>();
+    public void common() {
+        Map<String, Object> map = new HashMap<String, Object>();
     }
 
     @Test
-    public void getIpCity(){
+    public void getIpCity() {
         //{status:0,info:"LOCATE_FAILED"}
         String localtionJson = NetUtils.get("http://webapi.amap.com/maps/ipLocation",
                 "key=a264606ba32884df4e3bf33610a87991" + "&ip=125.121.119.1");
-        localtionJson = localtionJson.substring(1).substring(0,localtionJson.length()-3);
+        localtionJson = localtionJson.substring(1).substring(0, localtionJson.length() - 3);
         System.out.println("当前城市信息 ==" + localtionJson);
         JSONObject jsonObject = JSONObject.parseObject(localtionJson);
         System.out.println(jsonObject.getInteger("status"));
-        
+
     }
 
     @Test
-    public void random(){
+    public void random() {
 //        System.out.println((int)Math.ceil(Math.random()*2));
         System.out.println(Math.ceil(1.99));
     }
 
     @Test
-    public void wechat(){
+    public void wechat() {
         String access_token = "a5RxAoU12q95b70ZNfAzus3F9NxqFmsUpr8Z4grlku21Ev7X9Y3ZxYYhLX-JK1Ue07xgejTbTUYzrWGeADEoruXZya9sIwPrMjr_G-zcYMg";
         String url = "https://api.weixin.qq.com/cgi-bin/user/info";
         String openid = "oyv8Qt7vv9SdDsgBXtyA5x-Tlmag";
@@ -144,36 +144,94 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void submitSlogan(){
-        String url = "http://localhost:8080/portal/coupon/rpc/submitSlogan.json";
-        for(int i=3;i<=1000;i++){
-            Map<String,String> params = new HashMap<>();
-            params.put("userToken",String.valueOf(i));
-            params.put("content", "口号");
-            System.out.println(HttpUtils.post(url, params));
-        }
+    public void submitSlogan() {
+        String url = "http://localhost:8080/portal/activity/christmas/rpc/getAwardList.json";
+        Map<String, String> params = new HashMap<>();
+        params.put("userToken", "ca5d1b8bfa7a4f84be9850bc14874492");
+
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <= 500; i++) {
+                    System.out.println(HttpUtils.post(url, params));
+                }
+            }
+        };
+
+        Thread t1 = new Thread(r);
+//        Thread t2 = new Thread(r);
+        t1.start();
+//        t2.start();
 
 
     }
 
     @Test
-    public void testSlogan(){
+    public void testThread(){
+        //在Test中，如果Test结束，则在Test中启动的子线程会立即结束
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                String url = "http://localhost:8080/portal/activity/christmas/rpc/getAwardList.json";
+                Map<String, String> params = new HashMap<>();
+                params.put("userToken", "ca5d1b8bfa7a4f84be9850bc14874492");
+                System.out.println(HttpUtils.post(url, params));
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
+    }
+
+    @Test
+    public void testSlogan() {
         String url = "http://localhost:8080/portal/coupon/rpc/praiseSlogan.json";
-        for(int i=3;i<=1000;i++){
-            Map<String,String> params = new HashMap<>();
+        for (int i = 3; i <= 1000; i++) {
+            Map<String, String> params = new HashMap<>();
             params.put("userToken", String.valueOf(i));
             System.out.println(HttpUtils.post(url, params));
         }
     }
 
     @Test
-    public void testInteger(){
+    public void testCouponFish() {
+        String url = "http://localhost:8080/portal/coupon/rpc/getAwardWithRandom.json";
+        for (int i = 0; i <= 1000; i++) {
+            Map<String, String> params = new HashMap<>();
+            params.put("userToken", "297901");
+            params.put("machineId", "nvn3tNVH7IhYIuYVoBhQPNwuN8");
+            params.put("uuid", "123");
+            System.out.println(HttpUtils.post(url, params));
+        }
+    }
+
+    @Test
+    public void testInteger() {
         System.out.println(Integer.valueOf(null));
     }
 
-    public static void main(String[] args) throws Exception{
-        Test_1 t1 = new Test_1();
-        t1.t1();
+    public static void main(String[] args) throws Exception {
+        String url = "http://localhost:8080/portal/activity/christmas/rpc/getAwardList.json";
+        Map<String, String> params = new HashMap<>();
+        params.put("userToken", "888d9225fdea4fcaa8b95d46ee77aef2");
+
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0;i<500;i++){
+                    System.out.println(HttpUtils.post(url, params));
+                }
+            }
+        };
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+        Thread t3 = new Thread(r);
+        Thread t4 = new Thread(r);
+        Thread t5 = new Thread(r);
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
     }
 
 }
