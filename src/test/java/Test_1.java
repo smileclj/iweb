@@ -167,7 +167,7 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void testThread(){
+    public void testThread() {
         //在Test中，如果Test结束，则在Test中启动的子线程会立即结束
         Runnable r = new Runnable() {
             @Override
@@ -205,6 +205,43 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
+    public void testRandom() {
+        Random r1 = new Random();
+        List<Integer> result1 = new ArrayList<Integer>();
+        Random r2 = new Random(10);
+        for (int i = 1; i < 1000; i++) {
+            int randomNum = r1.nextInt(100) + 1;
+            if (randomNum == 100) {
+                result1.add(randomNum);
+            }
+            System.out.print(randomNum + ",");
+        }
+        System.out.println();
+        System.out.println("1%的命中率个数:" + result1.size());
+//        System.out.println();
+//        for (int i = 1; i < 1000; i++) {
+//            System.out.print(r2.nextInt(i)+",");
+//        }
+    }
+
+    @Test
+    public void testRandom2() {
+        Random r1 = new Random(100);
+        Random r2 = new Random(100);
+        for (int i = 0; i < 10; i++) {
+            if (i == 4) {
+                System.out.print(r1.nextInt(1) + ",");
+            } else {
+                System.out.print(r1.nextInt() + ",");
+            }
+        }
+        System.out.println();
+        for (int i = 0; i < 10; i++) {
+            System.out.print(r2.nextInt() + ",");
+        }
+    }
+
+    @Test
     public void testInteger() {
         System.out.println(Integer.valueOf(null));
     }
@@ -217,7 +254,7 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                for(int i = 0;i<500;i++){
+                for (int i = 0; i < 500; i++) {
                     System.out.println(HttpUtils.post(url, params));
                 }
             }
