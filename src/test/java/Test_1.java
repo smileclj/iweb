@@ -15,6 +15,9 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -244,6 +247,20 @@ public class Test_1 extends AbstractJUnit4SpringContextTests {
     @Test
     public void testInteger() {
         System.out.println(Integer.valueOf(null));
+    }
+
+    @Test
+    public void testFile() { //3*10*300*10*10
+        try {
+            PrintWriter pw = new PrintWriter("D:\\test.txt");
+            for (int i = 0; i < 10*300*10*12*10; i++) {  //5MB
+                pw.println("的的的的的的的的的的");
+            }
+            System.out.println("file print end");
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws Exception {

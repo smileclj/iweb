@@ -347,11 +347,20 @@ public class NetUtils {
 //        String downloadUrl = "http://localhost:8888/test/downloadOne.htm";
 //        NetUtils.downloadFile(downloadUrl,null,new File("D:\\d.txt"));
 
-        String uploadUrl = "http://localhost:8888/test/singleUpload.htm";
-        Map<String,String> params = new HashMap<>();
-        params.put("comment", "说明");
-        Map<String,File> files = new HashMap<>();
-        files.put("file", new File("D:\\test.txt"));
-        System.out.println(NetUtils.uploadFiles(uploadUrl, params, files));
+//        String uploadUrl = "http://localhost:8888/test/singleUpload.htm";
+//        Map<String,String> params = new HashMap<>();
+//        params.put("comment", "说明");
+//        Map<String,File> files = new HashMap<>();
+//        files.put("file", new File("D:\\test.txt"));
+//        System.out.println(NetUtils.uploadFiles(uploadUrl, params, files));
+
+        try {
+            URLConnection connection = new URL("http://www.baidu.com").openConnection();
+            System.out.println(connection.getConnectTimeout());
+            System.out.println(connection.getReadTimeout());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
